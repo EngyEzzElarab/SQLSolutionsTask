@@ -3,6 +3,7 @@ const express = require("express");
 const app = express();
 const mongoose = require('mongoose');
 const cors = require('cors');
+const unirest = require("unirest");
 const dotenv = require('dotenv');
 const HistoryRecords = require('./models/HistoryRecords');
 dotenv.config()
@@ -29,6 +30,55 @@ app.use(cors());
 
 
 //app.use('/history', HistoryRecordController);
+// const apiCall = unirest(
+
+//    "GET",
+
+//    "https://ip-geolocation-ipwhois-io.p.rapidapi.com/json/"
+
+//  );
+
+//  const headers={
+
+//    "x-rapidapi-host": "ip-geolocation-ipwhois-io.p.rapidapi.com",
+
+//    "x-rapidapi-key": "13bd313173msh9c75d15504edbacp14a18djsn380f2cea0e30"
+
+//  };
+
+//  app.get('/', async(req, res,next) => {
+
+
+//    await  axios.get("https://ip-geolocation-ipwhois-io.p.rapidapi.com/json/",{headers:headers})
+//    .then((res) => {
+//       console.log("entered GEO ",result.body);
+//       res.send(result.body);
+//        })
+//    .catch(err => console.log(err))
+ 
+// });
+
+var ip = '102.221.68.0';
+var options = {
+  method: 'GET',
+  url: `https://ip-geolocation-ipwhois-io.p.rapidapi.com/json/?ip=${ip}`,
+  headers: {
+    'x-rapidapi-host': 'ip-geolocation-ipwhois-io.p.rapidapi.com',
+    'x-rapidapi-key': '13bd313173msh9c75d15504edbacp14a18djsn380f2cea0e30'
+  }
+};
+
+app.get('/getCurrentGeoLocation', async(req, res,next) => {
+
+
+   axios.request(options).then(function (response) {
+      console.log({'latitude':response.data.latitude, 'longitude':response.data.longitude});
+      res.send({'latitude':response.data.latitude, 'longitude':response.data.longitude});
+   }).catch(function (error) {
+      console.error(error);
+   });
+   
+ } )
 
 
 app.post('/getWeather', async(req, res,next) => {

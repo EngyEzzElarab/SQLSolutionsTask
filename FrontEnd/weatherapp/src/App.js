@@ -4,6 +4,7 @@ import './App.css';
 import React, { useState } from "react";
 import ReactWeather, { useOpenWeather } from 'react-open-weather';
 import  NavBar from "./components/NavBar"
+import  ControlledCarousel from "./components/ControlledCarousel"
 
 function App() {
 
@@ -43,6 +44,7 @@ function App() {
   return (
     <div className="App">
       <NavBar setCoordinates = {setCoordinates}/>
+      {/* <ControlledCarousel /> */}
       {/* <Search /> */}
       <ReactWeather
       theme={customStyles}

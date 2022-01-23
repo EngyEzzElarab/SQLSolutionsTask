@@ -7,8 +7,13 @@ import Form from 'react-bootstrap/Form'
 import FormControl from 'react-bootstrap/FormControl'
 import Button from 'react-bootstrap/Button'
 import axios from "axios";
+import { ReactSearchAutocomplete } from 'react-search-autocomplete';
+import cities from '../cities.json';
+
 
 let s;
+let list = [];
+let obj = {};
 
 const NavBar = (props) => {
 
@@ -16,7 +21,13 @@ const NavBar = (props) => {
    const [long,setLong] =useState("");
    const [lat,setLat] =useState("");
    const [lonLat,setLonLat] =useState({});
+   const [columns, setColumns] = useState([]);
+   const [data, setData] = useState([]);
+   const [value,setValue]=useState('');
     const baseURL = 'http://localhost:8000/getWeather';
+    // All countries
+// length 252
+
 
     const onInput=(e)=>
     {
@@ -43,10 +54,60 @@ const NavBar = (props) => {
     }
   
 
+  
+  const OnClick=()=>
+  {
+    handleSubmit();
+   // handleFileUpload('./citiesCountries.csv');
+    console.log(list);
+
+  }
+  const handleOnSearch = (string, results) => {
+    console.log(string, results);
+  };
+
+  const handleOnHover = (result) => {
+    console.log(result);
+  };
+
+  const handleOnSelect = (item) => {
+    setCityName(item.name)
+    console.log("NAMEEE",item.name);
+  };
+
+  const handleOnFocus = () => {
+    console.log("Focused");
+  };
+
+  const handleOnClear = () => {
+    console.log("Cleared");
+  };
+  const items = [
+    {
+      id: 0,
+      name: "Cobol",
+    },
+    {
+      id: 1,
+      name: "JavaScript",
+    },
+    {
+      id: 2,
+      name: "Basic",
+    },
+    {
+      id: 3,
+      name: "PHP",
+    },
+    {
+      id: 4,
+      name: "Java",
+    },
+  ];
     return(
         <>
                
-                        <Navbar bg="primary" variant="dark" style={{justifyContent:"space-between", display:"flex"}}>
+                        <Navbar bg="primary" variant="dark" style={{justifyContent:"space-between", display:"flex",position: "relative"}}>
                             <Container style={{justifyContent:"space-between", display:"flex"}}>
                                 <div style={{display:"flex"}}>
                             <Navbar.Brand href="#home">Weather App</Navbar.Brand>
@@ -56,20 +117,40 @@ const NavBar = (props) => {
                             </Nav>
                             </div>
                             <Form className="d-flex">
-                            <FormControl
+                           
+                            {/* <FormControl
                             type="text"
                             placeholder="Search By City e.g Cairo"
                             className="form-control"
                             aria-label="Search"
                             onChange={(e)=>{onInput(e)}}
-                            />
-                            <Button variant="outline-success" onClick={handleSubmit}>Search</Button>
+                            /> */}
+                            {/* <Button variant="outline-success" onClick={OnClick}>Search</Button> */}
                                </Form>
                            
                             </Container>
                         </Navbar>
-
-        
+                        <div style={{display:'flex'}}>
+                       <div style={{width:"85%"}}>
+                        <ReactSearchAutocomplete
+                                
+                                items={cities}
+                                // fuseOptions={{ keys: ["country", "name"] }}
+                                onSearch={handleOnSearch}
+                                onHover={handleOnHover}
+                                onSelect={handleOnSelect}
+                                onFocus={handleOnFocus}
+                                onClear={handleOnClear}
+                                styling={{ zIndex: 2 }} 
+                                autoFocus
+                                // onChange={(e)=>{setCityName(e.taget.value.name)}}
+                       
+                                    />
+                                      </div>
+                                      <div style={{width:"25%", marginTop:"0.25%"}}>
+                                    <Button variant="btn btn-primary" onClick={handleSubmit}>Search</Button>
+                                    </div>
+                                    </div>
                 </>
 
     
