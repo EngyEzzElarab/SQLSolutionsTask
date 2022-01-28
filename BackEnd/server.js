@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const unirest = require("unirest");
 const dotenv = require('dotenv');
-const HistoryRecords = require('./models/HistoryRecords');
+const historyRecords = require('./Models/HistoryRecords');
 dotenv.config()
 
 const accessKey = process.env.access_key;
@@ -22,41 +22,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
-// mongoose.connect(MongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
-//   .then(result => console.log("MongoDB is now connected"))
-//   .catch(err => console.log(err));
-
-
-
-
-//app.use('/history', HistoryRecordController);
-// const apiCall = unirest(
-
-//    "GET",
-
-//    "https://ip-geolocation-ipwhois-io.p.rapidapi.com/json/"
-
-//  );
-
-//  const headers={
-
-//    "x-rapidapi-host": "ip-geolocation-ipwhois-io.p.rapidapi.com",
-
-//    "x-rapidapi-key": "13bd313173msh9c75d15504edbacp14a18djsn380f2cea0e30"
-
-//  };
-
-//  app.get('/', async(req, res,next) => {
-
-
-//    await  axios.get("https://ip-geolocation-ipwhois-io.p.rapidapi.com/json/",{headers:headers})
-//    .then((res) => {
-//       console.log("entered GEO ",result.body);
-//       res.send(result.body);
-//        })
-//    .catch(err => console.log(err))
- 
-// });
+mongoose.connect(MongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(result => console.log("MongoDB is now connected"))
+  .catch(err => console.log(err));
 
 var ip = '102.221.68.0';
 var options = {
@@ -85,6 +53,8 @@ app.post('/getWeather', async(req, res,next) => {
     
    
        const city= req.body.cityName;
+       const history = new historyRecords({cityName:req.body.cityName});
+
        console.log("HELLOO",city);
        let result={};
       
@@ -93,13 +63,18 @@ app.post('/getWeather', async(req, res,next) => {
           
           result=res.data.location;
           console.log("entered axios",result);
+
            })
        .catch(err => console.log(err))
+       await history.save();
       res.send(result);
+      console.log("ADDEED SUCCESSFULLY");
+
+     
 })
 
 
-
+app.use('/history', HistoryRecordController);
 
 app.listen(port, () => {
   console.log(`Listening to requests on http://localhost:${port}`);
