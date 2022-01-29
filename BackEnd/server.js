@@ -12,6 +12,7 @@ const accessKey = process.env.access_key;
 const MongoURI = process.env.Mongo_URI
 const port = process.env.PORT || "8000";
 const key =process.env.key;
+const path = require("path");
 
 
 const HistoryRecordController = require('./Controllers/HistoryRecordController');
@@ -75,6 +76,27 @@ app.post('/getWeather', async(req, res,next) => {
 
 
 app.use('/history', HistoryRecordController);
+
+// DEPLOYMENT
+
+__dirname = path.resolve();
+if(process.env.NODE_ENV === 'production')
+{
+    app.use(express.static(path.join(__dirname, '/FrontEnd/weatherapp/build')))
+
+    app.get('*', (req,res)=>{
+      res.sendFile(path.resolve(__dirname,'FrontEnd/weatherapp','build','index.html'));
+    })
+}
+else{
+
+  app.get("/", (req,res)=>{
+      res.send("API is running");
+  }
+  );
+}
+
+//
 
 app.listen(port, () => {
   console.log(`Listening to requests on http://localhost:${port}`);
