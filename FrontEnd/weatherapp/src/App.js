@@ -49,8 +49,8 @@ function App() {
             <Switch>
                       <Route exact path='/'>
                       {/* isLoading ? {marginTop:'15%'}: {} */}
-                          <div style={{backgroundImage:`url(${background})`, backgroundSize: '100%',height:'150vh', zIndex: '0', backgroundRepeat : 'repeat-y'}} className="flex-column justify-content-center align-items-center">
-                          <div style={ !showSearch? {Top:'15%'}: {}}>
+                          <div style={{backgroundImage:`url(${background})`, backgroundSize: '100%',height:'95vh', zIndex: '0', backgroundRepeat : 'repeat-y'}} className="flex-column justify-content-center align-items-center">
+                          <div style={!showSearch ?{paddingTop:'15%'}:{}}>
                             <SearchByCity setCoordinates = {setCoordinates} setShowSearch = {setShowSearch}/>
                             </div>
                             <div style={{marginTop:'3%'}}>
@@ -70,7 +70,7 @@ function App() {
                         
                        
                       <Route exact path='/history'>
-                      <div style={{backgroundImage:`url(${background})`, backgroundSize: '100%', zIndex: '0',height:'100%', backgroundRepeat : 'repeat-y'}} className="flex-column justify-content-center align-items-center">
+                      <div style={{backgroundImage:`url(${background})`, backgroundSize: '100%', zIndex: '0',height:'100vh', backgroundRepeat : 'repeat-y'}} className="flex-column justify-content-center align-items-center">
                               <ViewHistory />
                             </div>
                           
