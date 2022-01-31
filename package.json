@@ -1,0 +1,20 @@
+{
+  "name": "sqlsolutionstask",
+  "version": "1.0.0",
+  "description": "A simple weather app to show the weather of any city/country you search for.\r The search is autocomplete.\r You can view your search history.\r Made using MERN stack.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EngyEzzElarab/SQLSolutionsTask.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EngyEzzElarab/SQLSolutionsTask/issues"
+  },
+  "homepage": "https://github.com/EngyEzzElarab/SQLSolutionsTask#readme"
+}
