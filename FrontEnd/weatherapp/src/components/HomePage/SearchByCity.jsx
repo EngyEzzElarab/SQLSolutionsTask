@@ -27,6 +27,8 @@ const SearchByCity = (props) =>
    }
  const handleOnSearch = (string, results) => {
    console.log(string, results);
+   setCityName(string)
+
  };
 
  const handleOnHover = (result) => {
@@ -57,7 +59,7 @@ const SearchByCity = (props) =>
                                         styling={{ zIndex: 2 }} 
                                         autoFocus
                                         placeholder="City Name e.g Paris"
-                                        onChange={(e)=>{setCityName(e.taget.value.name)}}
+                                       
                                 
                                   />
                                     {loading ?
