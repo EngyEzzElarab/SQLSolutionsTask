@@ -43,7 +43,7 @@ jspm_packages/
 
 #production
 /build
-/FrontEnd/weatherapp/build
+ProcFile
 # TypeScript v1 declaration files
 typings/
 
